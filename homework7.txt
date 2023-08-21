@@ -1,0 +1,267 @@
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+class Date {
+        int day;
+        int month;
+        int year;
+    public:
+        //Default Constructor
+        Date(){ setDay(0);setMonth(0);setYear(0);cout<<"testdate\n"; }
+        //Constructor
+        Date(int d,int m,int y){ setDay(d);setMonth(m);setYear(y);}
+        //set
+        void setDay(int d){ day=d; }
+        void setMonth(int m){ month=m; }
+        void setYear(int y){ year=y; }
+        //get
+        int getDay() { return day; }
+        int getMonth() { return month; }
+        int getYear() { return year; }
+
+};
+
+class Address {
+        string address;
+        int zip_code = 0;
+        string phone_number;
+    public:
+        //Default Constructor
+        Address(){ setAddress(" ");setZipCode(0);setPhoneNumber(" ");cout<<"testaddress\n"; }
+        //Constructor
+        Address(string a,int z,string p){ setAddress(a);setZipCode(z);setPhoneNumber(p); }
+        //set
+        void setAddress(string a){ address=a; }
+        void setZipCode(int z){ zip_code=z; }
+        void setPhoneNumber(string p){ phone_number=p; }
+        //get
+        string getAddress(){ return address; }
+        int getZipCode() { return zip_code; }
+        string getPhoneNumber(){ return phone_number; }
+
+};
+
+class Person{
+
+    Date birthday = Date(0,0,0);
+    Address allAddress = Address(" ",0," ");
+
+    string fname;
+    string lname;
+    string id;
+
+    public:
+        //Default Constructor
+        Person(){ 
+            setName("FirstName","LastName");setID(" ");
+            setBirthDay(0,0,0);
+            setAllAddress(" ",0," ");
+        }
+        //Constructor
+        Person(string fn,string ln,string ids,int d,int m,int y,string a,int z,string p){
+            setName(fn,ln);setID(ids);
+            setBirthDay(d,m,y);
+            setAllAddress(a,z,p);
+        }
+        //Set
+        void setName(string fn,string ln) { fname=fn; lname=ln; }
+        void setID(string id1) { id=id1; }
+        void setBirthDay(int d,int m,int y) { birthday.setDay(d);birthday.setMonth(m);birthday.setYear(y); }
+        void setAllAddress(string a,int z,string p) { allAddress.setAddress(a);allAddress.setZipCode(z);allAddress.setPhoneNumber(p);}
+    
+        //Get
+        string getName() { return fname+" "+lname; }
+        string getID() { return id; }
+        Date& getBirthDay() { return birthday;}
+        Address& getAllAddress() { return allAddress; }
+        
+        //Show
+        void show(){
+            cout<<"----Class PersonTest----\n";
+            cout<<"Name: "<< fname <<" "<< lname << endl;
+            cout<<"ID: "<< id << endl;
+            cout<<"D/M/Y : "<<birthday.getDay()<<"/"<<birthday.getMonth()<<"/"<<birthday.getYear()<<endl;
+            cout<<"Address: "<<allAddress.getAddress()<<endl;
+            cout<<"Zip Code: "<<allAddress.getZipCode()<<endl;
+            cout<<"Phone Number: "<<allAddress.getPhoneNumber()<<endl;
+        }
+        //Destructor
+        ~Person(){ cout<<"BYE!\n";}
+
+};
+
+class Student:public Person {
+        string faculty,major,university;
+    public:
+        //Default Constructor
+        Student(){ 
+            setName("SFname","SLname");setID("TestID");
+            setFaculty(" ");
+            setMajor(" ");
+            setUniversity(" ");
+            setBirthDay(0,0,0);
+            setAllAddress(" ",0," ");
+        }
+        //Constructor 
+        /*Student(string fn,string ln,string ids,string fac,string mj,string us,int d,int m,int y,string a,int z,string p){
+            setName(fn,ln);setID(ids);
+            setFaculty(fac);
+            setMajor(mj);
+            setUniversity(us);
+            setBirthDay(d,m,y);
+            setAllAddress(a,z,p);
+        }*/
+        //New case <<
+        Student(string fn,string ln,string ids,string fac,string mj,string us,int d,int m,int y,string a,int z,string p)
+        :Person(fn,ln,ids,d,m,y,a,z,p)
+        {
+            setFaculty(fac);
+            setMajor(mj);
+            setUniversity(us);
+        }
+        void setFaculty(string fac) { faculty=fac; }
+        void setMajor(string mj) { major=mj; }
+        void setUniversity(string us) { university=us; }
+        //get
+        string getFaculty(){ return faculty;}
+        string getMajor(){ return major;}
+        string getUniversity(){ return university;}
+        //show
+        void show(){
+            cout<<"-----STUDENT-----" << endl;
+            cout<<"Student Name: " <<getName()<<endl;
+            cout<<"Student ID: " <<getID()<< endl;
+            cout<<"Faculty: "<<faculty<<endl;
+            cout<<"Major: "<<major<<endl;
+            cout<<"University: "<<university<<endl;
+            cout<<"BirthDay: " << getBirthDay().getDay() << "/" << getBirthDay().getMonth() << "/" << getBirthDay().getYear() << endl;
+            cout<<"Address: "<<getAllAddress().getAddress()<<endl;
+            cout<<"Zip Code: "<<getAllAddress().getZipCode()<<endl;
+            cout<<"Phone Number: "<<getAllAddress().getPhoneNumber()<<endl;
+        }
+
+        
+};
+
+class Teacher:public Person{ 
+        string faculty,major,university;
+    public:
+        //Default Constructor
+        Teacher(){ 
+            setName("TFname","TLname");setID("TestID");
+            setFaculty(" ");
+            setMajor(" ");
+            setUniversity(" ");
+            setBirthDay(0,0,0);
+            setAllAddress(" ",0," ");
+        }
+        //Contructor
+        /*Teacher(string fn,string ln,string ids,string fac,string mj,string us,int d,int m,int y,string a,int z,string p){
+            setName(fn,ln);setID(ids);
+            setFaculty(fac);
+            setMajor(mj);
+            setUniversity(us);
+            setBirthDay(d,m,y);
+            setAllAddress(a,z,p);
+        }*/
+        //New case <<
+        Teacher(string fn,string ln,string ids,string fac,string mj,string us,int d,int m,int y,string a,int z,string p)
+        :Person(fn,ln,ids,d,m,y,a,z,p)
+        {
+            setFaculty(fac);
+            setMajor(mj);
+            setUniversity(us);
+        }
+        //set
+        void setFaculty(string fac) { faculty=fac; }
+        void setMajor(string mj) { major=mj; }
+        void setUniversity(string us) { university=us; }
+        //get
+        string getFaculty(){ return faculty;}
+        string getMajor(){ return major;}
+        string getUniversity(){ return university;}
+        //show
+        void show(){
+            cout<<"-----Teacher-----"<<endl;
+            cout<<"Teacher Name: "<<getName()<<endl;
+            cout<<"Teacher ID: "<<getID()<<endl;
+            cout<<"Faculty: "<<faculty<<endl;
+            cout<<"Major: "<<major<<endl;
+            cout<<"University: "<<university<<endl;
+            cout<<"BirthDay: " << getBirthDay().getDay() << "/" << getBirthDay().getMonth() << "/" << getBirthDay().getYear() << endl;
+            cout<<"Address: "<<getAllAddress().getAddress()<<endl;
+            cout<<"Zip Code: "<<getAllAddress().getZipCode()<<endl;
+            cout<<"PhoneNumber : "<<getAllAddress().getPhoneNumber()<<endl;
+
+        }
+};
+
+int main(){
+    Student zx;
+    Student z("Samart","Sanomano",
+              "6505000841",
+              "Science",
+              "Computer",
+              "Ramkhamhaeng",
+              28,10,2003,
+              "Latkarbang 5/2",10520,"0987654321");
+    z.show();
+
+    
+    cout<<"-----------------------------------\n";
+
+    Teacher cc;
+    Teacher c("Sompond","Jaidee",
+              "123456789",
+              "Science",
+              "Computer",
+              "Ramkhamhaeng",
+              10,10,2000,
+              "RAM",15006,"0287654321");
+    c.show();
+
+    cout<<"-----------------------------------\n";
+
+    Student d;
+    d.setName("Sa","Mart");
+    d.setID("1234567890");
+    d.setFaculty("Science");
+    d.setMajor("Com");
+    d.setUniversity("Ram");
+    d.setBirthDay(10,10,2020);
+    d.setAllAddress("Townhouse",0000,"0987654321");
+    cout<<"Student Name: "<<d.getName()<<endl;
+    cout<<"Student ID: "<<d.getID()<<endl;
+    cout<<"Faculty: "<<d.getFaculty()<<endl;
+    cout<<"Major: "<<d.getMajor()<<endl;
+    cout<<"University: "<<d.getUniversity()<<endl;
+    cout<<"BirthDay: "<<d.getBirthDay().getDay() << "/" <<d.getBirthDay().getMonth() << "/" << d.getBirthDay().getYear() << endl;
+    cout<<"Address: "<<d.getAllAddress().getAddress()<<endl;
+    cout<<"Zip Code: "<<d.getAllAddress().getZipCode()<<endl;
+    cout<<"PhoneNumber : "<<d.getAllAddress().getPhoneNumber()<<endl;
+
+    cout<<"-----------------------------------\n";
+
+    Teacher ff;
+    ff.setName("Sompond","Jaidee");
+    ff.setID("1234567890");
+    ff.setFaculty("Science");
+    ff.setMajor("Com");
+    ff.setUniversity("Ram");
+    ff.setBirthDay(10,10,2020);
+    ff.setAllAddress("Town",11111,"0981111111");
+    cout<<"Teacher Name: "<<ff.getName()<<endl;
+    cout<<"Teacher ID: "<<ff.getID()<<endl;
+    cout<<"Faculty: "<<ff.getFaculty()<<endl;
+    cout<<"Major: "<<ff.getMajor()<<endl;
+    cout<<"University: "<<ff.getUniversity()<<endl;
+    cout<<"BirthDay: "<<ff.getBirthDay().getDay() << "/" <<ff.getBirthDay().getMonth() << "/" << ff.getBirthDay().getYear() << endl;
+    cout<<"Address: "<<ff.getAllAddress().getAddress()<<endl;
+    cout<<"Zip Code: "<<ff.getAllAddress().getZipCode()<<endl;
+    cout<<"PhoneNumber : "<<ff.getAllAddress().getPhoneNumber()<<endl;
+
+
+    return 0;
+}
